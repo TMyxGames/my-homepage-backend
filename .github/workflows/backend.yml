@@ -48,13 +48,23 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # 找到旧的进程并杀死（根据你的 jar 包名匹配）
+            # 1. 停止旧进程（精准打击）
             pid=$(ps -ef | grep "backend.jar" | grep -v grep | awk '{print $2}')
             if [ -n "$pid" ]; then
               kill -9 $pid
-              echo "已停止旧进程: $pid"
             fi
             
-            # 启动新项目
-            nohup java -jar ${{ secrets.TARGET }}/backend.jar --spring.profiles.active=prod > ${{ secrets.TARGET }}/log.txt 2>&1 &
-            echo "项目已在后台启动"
+            # 2. 进入后端目录
+            cd /www/wwwroot/n0v0rland.xyz/backend
+            
+            # 3. 使用绝对路径启动 java (关键修改点)
+            nohup /www/server/java/jdk-17.0.8/bin/java -jar -Xmx1024M -Xms256M backend.jar --spring.profiles.active=prod --server.port=9090 > log.txt 2>&1 &
+            
+            # 4. 检查是否启动成功
+            sleep 2
+            if ps -ef | grep "backend.jar" | grep -v grep; then
+              echo "后端启动成功！"
+            else
+              echo "后端启动失败，请检查 log.txt"
+              exit 1
+            fi
