@@ -47,6 +47,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 6415
           script: |
             # 1. 停止旧进程（精准打击）
             pid=$(ps -ef | grep "backend.jar" | grep -v grep | awk '{print $2}')
