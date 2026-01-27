@@ -2,6 +2,7 @@ package com.tmyx.backend.controller;
 
 
 import com.tmyx.backend.entity.Article;
+import com.tmyx.backend.entity.articleUpdateDTO;
 import com.tmyx.backend.mapper.ArticleMapper;
 import com.tmyx.backend.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +53,27 @@ public class ArticleController {
         file.transferTo(dest);
 
         Article article = new Article();
-        article.setTitle(file.getOriginalFilename());
+        article.setTitle("点击输入标题");
+        article.setFileName(file.getOriginalFilename());
         article.setContentUrl("/articles/" + fileName);
         articleMapper.insert(article);
 
         return "/articles/" + fileName;
     }
+
+    // 修改文章标题
+    @PutMapping("/updateTitle")
+    public ResponseEntity<?> updateTitle(@RequestBody articleUpdateDTO updateDTO) {
+        int rows = articleMapper.updateTitle(updateDTO.getId(), updateDTO.getTitle());
+
+        if (rows == 0) {
+            return ResponseEntity.status(404).body("文章更新失败");
+        }
+
+        return ResponseEntity.ok("修改成功");
+    }
+
+
 
     // 删除文章
     @DeleteMapping("/delete/{id}")

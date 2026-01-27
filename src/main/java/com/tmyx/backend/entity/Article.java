@@ -5,6 +5,7 @@ import java.util.Date;
 public class Article {
     private Integer id;
     private String title;
+    private String fileName;
     private String contentUrl;
     private Date uploadTime;
 
@@ -23,6 +24,10 @@ public class Article {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getFileName() { return fileName; }
+
+    public void setFileName(String fileName) { this.fileName = fileName; }
 
     public String getContentUrl() {
         return contentUrl;
@@ -45,6 +50,7 @@ public class Article {
         return "Article{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", fileName='" + fileName + '\'' +
                 ", contentUrl='" + contentUrl + '\'' +
                 ", uploadTime=" + uploadTime +
                 '}';
