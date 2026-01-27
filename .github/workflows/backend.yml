@@ -36,9 +36,8 @@ jobs:
           source: "target/backend.jar"
           target: ${{ secrets.TARGET }}
           strip_components: 1
-          # 关键增强配置：
-          debug: true
-          proxy_timeout: 30s
+          rm: true
+          timeout: 120s
 
       # 4. 远程执行命令重启项目
       - name: Restart Java Project
