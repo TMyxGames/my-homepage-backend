@@ -32,7 +32,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
+          port: 6415
           source: "target/backend.jar"
           target: ${{ secrets.TARGET }}
           strip_components: 1
