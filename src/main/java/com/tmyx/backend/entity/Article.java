@@ -1,21 +1,26 @@
 package com.tmyx.backend.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Article {
-    private Integer id;
+    @TableId(type = IdType.INPUT)
+    private String id;
     private String title;
-    private String fileName;
     private String contentUrl;
-    private Date uploadTime;
+    private LocalDateTime uploadTime;
+    private Integer status;
 
-    public Integer getId() {
-        return id;
-    }
+    @TableField(exist = false)
+    private String content;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getTitle() {
         return title;
@@ -25,10 +30,6 @@ public class Article {
         this.title = title;
     }
 
-    public String getFileName() { return fileName; }
-
-    public void setFileName(String fileName) { this.fileName = fileName; }
-
     public String getContentUrl() {
         return contentUrl;
     }
@@ -37,22 +38,30 @@ public class Article {
         this.contentUrl = contentUrl;
     }
 
-    public Date getUploadTime() {
+    public LocalDateTime getUploadTime() {
         return uploadTime;
     }
 
-    public void setUploadTime(Date uploadTime) {
+    public void setUploadTime(LocalDateTime uploadTime) {
         this.uploadTime = uploadTime;
     }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
+
+    public String getContent() { return content; }
+
+    public void setContent(String content) { this.content = content; }
 
     @Override
     public String toString() {
         return "Article{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", fileName='" + fileName + '\'' +
                 ", contentUrl='" + contentUrl + '\'' +
                 ", uploadTime=" + uploadTime +
+                ", status=" + status +
                 '}';
     }
 }

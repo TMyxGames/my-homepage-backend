@@ -29,16 +29,14 @@ public class CorsConfig implements WebMvcConfigurer {
         if (!filePath.endsWith("/")) filePath += "/";
 
         // 文章
-        registry.addResourceHandler("/articles/**")
-                .addResourceLocations("file:" + filePath + "articles/");
+//        registry.addResourceHandler("/articles/**")
+//                .addResourceLocations("file:" + filePath + "articles/");
 
-        // 服务
-//        registry.addResourceHandler("/service/**")
-//                .addResourceLocations("file:" + filePath + "service/");
+        // 通用映射
+        registry.addResourceHandler("/files/**")
+                .addResourceLocations("file:" + filePath)
+                .setCachePeriod(3600);
 
-        // 用户头像
-//        registry.addResourceHandler("/user/**")
-//                .addResourceLocations("file:" + filePath + "user/");
     }
 
 
