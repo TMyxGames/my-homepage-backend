@@ -165,29 +165,6 @@ public class ArticleController {
         return Result.success(article);
     }
 
-//    // 上传文章
-//    @PostMapping("/upload")
-//    public Result uploadMarkdown(@RequestParam("file") MultipartFile file) throws IOException {
-//        // 保存文件
-//        String subPath = "articles";
-//        File uploadDir = new File(resourcePath, "article/");
-//        if (!uploadDir.exists()) {
-//            uploadDir.mkdirs();
-//        }
-//
-//        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-//        File dest = new File(uploadDir, fileName);
-//        file.transferTo(dest);
-//
-//        Article article = new Article();
-//        article.setTitle("点击输入标题");
-//        article.setFileName(file.getOriginalFilename());
-//        article.setContentUrl("/article/" + fileName);
-//        articleMapper.insert(article);
-//
-//        return Result.success("/article/" + fileName);
-//    }
-
     // 修改文章标题
     @PutMapping("/updateTitle")
     public Result updateTitle(@RequestBody ArticleUpdateDTO updateDTO) {
