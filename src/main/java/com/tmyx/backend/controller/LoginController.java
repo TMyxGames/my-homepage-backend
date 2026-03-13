@@ -5,10 +5,12 @@ import com.tmyx.backend.dto.LoginDTO;
 import com.tmyx.backend.mapper.LoginMapper;
 import com.tmyx.backend.service.LoginService;
 import com.tmyx.backend.service.MailService;
+import com.tmyx.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -44,22 +46,29 @@ public class LoginController {
         String email = "tmyx_games@qq.com";
         String inputCode = loginDTO.getCaptcha();
         String realCode = redisTemplate.opsForValue().get("CAPTCHA:" + email);
-
+        // 检查验证码是否有效
         if (realCode == null) {
             loginService.insertLoginRecord(0);
-            return Result.error(500,"验证码错误");
+            return Result.error(500,"验证码已失效，请重新获取");
         }
-
+        // 检查验证码是否正确
         if (!realCode.equals(inputCode)) {
             loginService.insertLoginRecord(0);
             return Result.error(500,"验证码错误");
         }
-
         loginService.insertLoginRecord(1);
         redisTemplate.delete("CAPTCHA:" + email);
+        // 生成JWT token
+        String token = JwtUtil.createToken(1);
 
-        return Result.success();
+        return Result.success(token);
 
+    }
+
+    // 获取所有登录记录
+    @GetMapping("/all")
+    public Result getAllLoginRecords(@RequestAttribute Integer userId) {
+        return Result.success(loginMapper.findAll());
     }
 
 

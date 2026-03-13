@@ -24,13 +24,9 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 确保你的上传路径是以 file: 开头的合法 URL
+        // 确保上传路径是以 file: 开头的 URL
         String filePath = resourcePath.replace("\\", "/");
         if (!filePath.endsWith("/")) filePath += "/";
-
-        // 文章
-//        registry.addResourceHandler("/articles/**")
-//                .addResourceLocations("file:" + filePath + "articles/");
 
         // 通用映射
         registry.addResourceHandler("/files/**")
