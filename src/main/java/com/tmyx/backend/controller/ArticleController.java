@@ -148,7 +148,7 @@ public class ArticleController {
 
     // 编辑文章
     @GetMapping("/get/{id}")
-    public Result getById(@RequestAttribute Integer userId, @PathVariable String id) {
+    public Result getById(@PathVariable String id) {
         Article article = articleMapper.findById(id);
         if (article == null) return Result.error("文章不存在");
 
