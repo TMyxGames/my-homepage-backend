@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(
                         "/auth/sendCaptcha",        // 发送验证码
-                        "/auth/login",              // 登录
+                        "/auth/login",              // 登录后台
                         "/article/published",       // 获取已发布文章
                         "/article/get/**",          // 获取文章详情
                         "/files/**"                 // 文件路径映射
